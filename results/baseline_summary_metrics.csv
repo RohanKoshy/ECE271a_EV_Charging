@@ -1,0 +1,4 @@
+Baseline Model,Sessions Evaluated,Total Energy Delivered (kWh),Total Shortfall (kWh),All-Time Peak (kW),Avg Monthly Peak (kW),TOU Energy Cost ($),Demand Charges ($),Total Cost ($)
+Naive Plug-and-Charge,31424,270842.53,19932.65,217.39,79.75,40886.22,51953.66,92839.88
+Lee et al. (Deterministic LP),31424,239087.48,19376.93,150.0,97.05,20589.93,60209.42,80799.35
+Calafiore et al. (Class LP),31424,188620.91,102154.27,150.0,67.68,28824.57,41988.12,70812.69
