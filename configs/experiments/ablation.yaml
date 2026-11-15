@@ -1,0 +1,14 @@
+# Which term changes what: the same days solved with different sets of terms.
+extends: ../base.yaml
+experiment: {name: ablation, scenarios: 1, days: 3}
+methods: [day_ahead]
+variants:
+  base:
+    model.terms: {energy_cost: {}, unmet_energy: {gamma: 1.0}, equal_sharing: {eps: 1.0e-7}}
+  + demand charge:
+    model.terms: {energy_cost: {}, unmet_energy: {gamma: 1.0}, equal_sharing: {eps: 1.0e-7}, demand_charge: {}}
+  + current limit:
+    model.terms: {energy_cost: {}, unmet_energy: {gamma: 1.0}, equal_sharing: {eps: 1.0e-7}, current_limit: {}}
+  + chance constraint (95%):
+    model.terms: {energy_cost: {}, unmet_energy: {gamma: 1.0, mode: quantile, eps: 0.05}, equal_sharing: {eps: 1.0e-7}}
+  all: {}

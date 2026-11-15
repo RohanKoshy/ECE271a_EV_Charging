@@ -1,0 +1,14 @@
+name: evopt
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - cvxpy          # bundles Clarabel, which solves the QP
+  - matplotlib
+  - pyyaml
+  - pytest
+  - pip
+  - pip:
+      - -e .

@@ -1,0 +1,48 @@
+# Defaults shared by every experiment. Status of each value (sourced vs assumed)
+# is listed in the README parameter table.
+#
+# ACN-Data (source: acn) settings:
+# * Charger rate is 6.6 kW, for Caltech's 32 A, 208 V chargers. ACN-Data doesn't list a rate per session.
+# * Safe power is 5 kW, below the 6.6 kW charger rate, so the current_limit constraint is active.
+# * Site capacity is 150 kW, the transformer in the ACN paper, instead of 1,130 kW.
+
+data:
+  source: synthetic              # synthetic | csv | acn
+  synthetic:                     # arguments for the chosen source live under its own name
+    n_sessions: 100
+    ev_max_kw: 22
+  p_safe_kw: 5                   # overcurrent limit (kW), enforced by the current_limit term
+  demand:                        # each EV's energy demand is Normal(energy_requested, sd^2)
+    cv: 0.2                      # sd = cv * energy_requested (coefficient of variation); 0 = deterministic
+
+prices:
+  source: synthetic              # synthetic | csv  (placeholder until a dataset is chosen)
+  params: {n_days: 200, volatility: 0.0}   # volatility 0: prices are known (the TOU tariff); demand is the uncertainty
+  train_fraction: 0.8            # days used to estimate mean and covariance
+  shrinkage: 0.1
+
+site:
+  slot_minutes: 5
+  horizon_hours: 24
+  capacity_kw: 150             # physical limit, applies to every method
+  demand_charge_usd_per_kw_month: 15.51
+  billing_days: 30
+
+model:
+  terms:                         # delete a line to remove a module
+    energy_cost: {}
+    unmet_energy: {gamma: 1.0, mode: expected}   # expected | quantile (with eps)
+    demand_charge: {}
+    current_limit: {}            # hard cap: p <= p_safe_kw
+    equal_sharing: {eps: 1.0e-7}
+  mpc:
+    replan_every_min: 60
+
+methods: [day_ahead, mpc, hindsight]
+baselines: [fifs]
+
+experiment:
+  name: base
+  scenarios: 1                   # synthetic session days
+  days: 3                        # simulated days per scenario (each draws new true demands)
+  seed: 0

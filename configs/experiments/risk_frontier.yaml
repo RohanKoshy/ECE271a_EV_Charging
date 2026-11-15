@@ -1,0 +1,12 @@
+# Cost vs reliability as the planner hedges more against uncertain demand:
+# the expected-shortfall model, then chance constraints P(demand met) >= 1 - eps.
+extends: ../base.yaml
+experiment: {name: risk_frontier, scenarios: 1, days: 20}
+methods: [day_ahead]
+variants:
+  expected:     {model.terms.unmet_energy: {gamma: 1.0, mode: expected}}
+  eps=0.5:      {model.terms.unmet_energy: {gamma: 1.0, mode: quantile, eps: 0.5}}
+  eps=0.2:      {model.terms.unmet_energy: {gamma: 1.0, mode: quantile, eps: 0.2}}
+  eps=0.1:      {model.terms.unmet_energy: {gamma: 1.0, mode: quantile, eps: 0.1}}
+  eps=0.05:     {model.terms.unmet_energy: {gamma: 1.0, mode: quantile, eps: 0.05}}
+  eps=0.01:     {model.terms.unmet_energy: {gamma: 1.0, mode: quantile, eps: 0.01}}

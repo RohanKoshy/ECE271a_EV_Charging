@@ -1,0 +1,6 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+results/
+# raw downloads (ACN JSON, battery-health files)
+/data/

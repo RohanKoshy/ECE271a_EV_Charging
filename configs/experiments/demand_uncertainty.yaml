@@ -1,0 +1,9 @@
+# How much does the size of the demand uncertainty (sd = cv * request) matter?
+extends: ../base.yaml
+experiment: {name: demand_uncertainty, scenarios: 1, days: 10}
+variants:
+  cv=0:    {data.demand.cv: 0.0}
+  cv=0.1:  {data.demand.cv: 0.1}
+  cv=0.2:  {data.demand.cv: 0.2}
+  cv=0.3:  {data.demand.cv: 0.3}
+  cv=0.5:  {data.demand.cv: 0.5}

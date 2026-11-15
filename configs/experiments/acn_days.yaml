@@ -1,0 +1,22 @@
+# Example. Generate your own from a download: python scripts/make_acn_config.py data/acn/<your file>.json
+# Real sessions from ACN-Data, one variant per day. Edit freely; rerunning the script overwrites this file.
+extends: ../base.yaml
+experiment: {name: acn_days, scenarios: 1, days: 3}
+data:
+  source: acn
+  acn:
+    path: data/acn/acndata_sessions.json
+    date: "2018-07-19"   # overridden per variant below
+    # Assumed: most Caltech EVSEs are 32 A at 208 V.
+    ev_max_kw: 6.6
+    # Only 35 of the 6142 sessions in this download have a driver request (userInputs), none
+    # on the days below. false keeps every session and uses kWhDelivered as the energy request.
+    claimed_only: false
+  # Assumed. Must be below ev_max_kw, or the current_limit constraint never binds.
+  p_safe_kw: 5.0
+site:
+  # Transformer t1 in the ACN paper (150 kVA).
+  capacity_kw: 150.0
+variants:
+  "2018-07-19": {data.acn.date: "2018-07-19"}
+  "2018-07-24": {data.acn.date: "2018-07-24"}

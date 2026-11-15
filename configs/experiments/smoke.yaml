@@ -1,0 +1,5 @@
+# Small and fast: use this to check an install.
+extends: ../base.yaml
+experiment: {name: smoke, scenarios: 1, days: 2}
+data: {synthetic: {n_sessions: 20}}
+site: {slot_minutes: 15, capacity_kw: 200}
