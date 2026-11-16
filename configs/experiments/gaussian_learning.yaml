@@ -1,0 +1,6 @@
+extends: ../base.yaml
+experiment: {name: gaussian_learning}
+methods: [learning_mpc]
+learning:
+  truth: {mean: 20.0, sd: 4.0}
+  estimator: {initial_mean: 12.0, initial_sd: 6.0, min_sd: 0.25, prior_weight: 0.1}

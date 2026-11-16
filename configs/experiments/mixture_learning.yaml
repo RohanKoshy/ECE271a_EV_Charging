@@ -1,0 +1,18 @@
+extends: ../base.yaml
+experiment: {name: mixture_learning}
+methods: [learning_mpc]
+learning:
+  truth:
+    components:
+      - {mean: 8.0, sd: 2.0}
+      - {mean: 20.0, sd: 3.0}
+      - {mean: 35.0, sd: 4.0}
+    weights: [0.4, 0.4, 0.2]
+  estimator:
+    initial_components:
+      - {mean: 6.0, sd: 3.0}
+      - {mean: 16.0, sd: 4.0}
+      - {mean: 28.0, sd: 5.0}
+    initial_weights: [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
+    min_sd: 0.5
+    prior_weight: 0.1
